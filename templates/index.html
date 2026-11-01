@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Explore Ivano-Frankivsk</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Explore Ivano-Frankivsk</h1>
+      <p>Discover the city's landmarks, parks, and historic places.</p>
+    </div>
+    <span id="count" class="count"></span>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <h2>Places to explore</h2>
+      <p class="hint">Select a place to locate it on the map.</p>
+      <input id="search" type="search" placeholder="Search places...">
+      <select id="filter">
+        <option value="">All categories</option>
+        {% for c in categories %}<option>{{ c }}</option>{% endfor %}
+      </select>
+      <ul id="list"></ul>
+      <button id="addBtn" class="primary">+ Add place</button>
+    </aside>
+    <div id="map"></div>
+  </main>
+
+  <dialog id="dlg">
+    <form id="form" method="dialog">
+      <h3 id="dlgTitle">Add place</h3>
+      <label>Name <input name="name" required maxlength="120"></label>
+      <label>Category
+        <select name="category">{% for c in categories %}<option>{{ c }}</option>{% endfor %}</select>
+      </label>
+      <label>Description <textarea name="description" rows="3"></textarea></label>
+      <p class="hint" id="coordHint">Click the map to choose a location.</p>
+      <div class="row">
+        <button type="button" id="pickBtn">Pick on map</button>
+        <button type="button" id="cancel">Cancel</button>
+        <button type="submit" class="primary">Save place</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
